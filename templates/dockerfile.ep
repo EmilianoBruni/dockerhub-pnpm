@@ -21,8 +21,10 @@
 %= $warning
 FROM <%= $release->{$from} || $from %>
 LABEL maintainer="<%= $global->{author}->{name} . ' <' . $global->{author}->{mail} . '>' %>"
-%   for my $key (sort keys $global->{env}->%*) {
-ENV <%= "$key=$global->{env}{$key}" %>
+%   for my $itm ($global->{env}->@*) {
+%     for my $key (sort keys $itm->%*) {
+ENV <%= "$key=$itm->{$key}" %>
+%   }
 % }
 
 %= 'EXPOSE '. $global->{publish} if ($global->{publish});
