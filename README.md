@@ -9,7 +9,7 @@ All images, unless explicitly defined, are based on [node:23-alpine3.20](https:/
 
 # Supported tags and respective Dockerfile links
 
-* ebruni/pnpm: [23.3, latest (main/Dockerfile)](https://github.com/EmilianoBruni/dockerhub-pnpm/blob/master/main/Dockerfile) (size: **193MB**)
+* ebruni/pnpm: [23.3.1, latest (main/Dockerfile)](https://github.com/EmilianoBruni/dockerhub-pnpm/blob/master/main/Dockerfile) (size: **193MB**)
 
 
 # How to use this image
@@ -26,7 +26,8 @@ Emiliano Bruni (EB) <info@ebruni.it>
 
 | AUTHOR | DATE | VER. | COMMENTS |
 |:---|:---:|:---:|:---|
-| EB | 2024-12-02 | 23.3 | First Release |
+| EB | 2024-12-02 | 23.3.1 | Add PNPM_HOME to PATH |
+| EB | 2024-12-02 | 23.3.0 | First Release |
 
 # Source
 

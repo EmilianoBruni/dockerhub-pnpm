@@ -12,7 +12,8 @@
 #
 # UPDATES:
 #   AUTHOR  DATE        VER  COMMENTS
-#   EB      2024-12-02  23.3  First Release
+#   EB      2024-12-02  23.3.1  Add PNPM_HOME to PATH
+#   EB      2024-12-02  23.3.0  First Release
 #
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 #
@@ -24,8 +25,9 @@
 #
 FROM node:23-alpine3.20
 LABEL maintainer="Emiliano Bruni <info@ebruni.it>"
-ENV PNPM_HOME=/home/node/pnpm
 ENV TZ=Europe/Rome
+ENV PNPM_HOME=/home/node/pnpm
+ENV PATH=$PNPM_HOME:$PATH
 
 
 
@@ -59,6 +61,6 @@ LABEL org.opencontainers.image.licenses=Artistic-2.0
 LABEL org.opencontainers.image.source=https://github.com/EmilianoBruni/dockerhub-pnpm/blob/master/main/Dockerfile
 LABEL org.opencontainers.image.title=dockerhub-pnpm
 LABEL org.opencontainers.image.url=https://github.com/EmilianoBruni/dockerhub-pnpm
-LABEL org.opencontainers.image.version=23.3
+LABEL org.opencontainers.image.version=23.3.1
 
 CMD ["/bin/ash"]
