@@ -44,6 +44,8 @@ ENV <%= "$key=$release->{env}{$key}" %>
     <%= $_ %> \\
 %   }
 % }
+  # update corepack to latest version
+  && npm install -g corepack \\
   && corepack enable \\
   # change node group and user id
   && usermod -u 1001 node && groupmod -g 1001 node \\
