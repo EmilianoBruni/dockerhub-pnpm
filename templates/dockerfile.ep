@@ -69,4 +69,5 @@ WORKDIR <%= $global->{app_folder} %>
 
 %= $labels
 
+ENTRYPOINT ["/sbin/tini", "--"]
 CMD ["/bin/ash"]
