@@ -37,9 +37,5 @@ if [ -d "/ws" ]; then
     chown node:node "/ws"
 fi
 
-# unset FORCE_UID and FORCE_GID to avoid running this script at this point again
-su-exec node unset FORCE_UID
-unset FORCE_GID
-
 # Execute the command as the 'node' user
 exec su-exec node "$@"

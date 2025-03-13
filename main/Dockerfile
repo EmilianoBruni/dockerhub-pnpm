@@ -1,7 +1,7 @@
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 #
 # AUTHORS :  Emiliano Bruni (EB) <info@ebruni.it>
-# DATE    :  2025-03-13
+# DATE    :  2025-03-14
 # PURPOSE :
 #   Docker image node with git and pnpm enabled.
 #
@@ -12,6 +12,7 @@
 #
 # UPDATES:
 #   AUTHOR  DATE        VER  COMMENTS
+#   EB      2025-03-14  23.3.4  Fix bugs
 #   EB      2025-03-13  23.3.3  Add support for custom UID/GID for node user. Add colored prompt
 #   EB      2025-03-11  23.3.2  Add tini as entrypoint. Update corepack to latest
 #   EB      2024-12-02  23.3.1  Add PNPM_HOME to PATH
@@ -70,7 +71,7 @@ LABEL org.opencontainers.image.licenses=Artistic-2.0
 LABEL org.opencontainers.image.source=https://github.com/EmilianoBruni/dockerhub-pnpm/blob/master/main/Dockerfile
 LABEL org.opencontainers.image.title=dockerhub-pnpm
 LABEL org.opencontainers.image.url=https://github.com/EmilianoBruni/dockerhub-pnpm
-LABEL org.opencontainers.image.version=23.3.3
+LABEL org.opencontainers.image.version=23.3.4
 
 ENTRYPOINT ["/sbin/tini", "--", "/entrypoint.sh"]
 CMD ["/bin/ash"]

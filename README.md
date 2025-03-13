@@ -9,7 +9,7 @@ All images, unless explicitly defined, are based on [node:23-alpine3.20](https:/
 
 # Supported tags and respective Dockerfile links
 
-* ebruni/pnpm: [23.3.3, latest (main/Dockerfile)](https://github.com/EmilianoBruni/dockerhub-pnpm/blob/master/main/Dockerfile) (size: **199MB**)
+* ebruni/pnpm: [23.3.4, latest (main/Dockerfile)](https://github.com/EmilianoBruni/dockerhub-pnpm/blob/master/main/Dockerfile) (size: ****)
 
 
 # How to use this image
@@ -26,6 +26,7 @@ Emiliano Bruni (EB) <info@ebruni.it>
 
 | AUTHOR | DATE | VER. | COMMENTS |
 |:---|:---:|:---:|:---|
+| EB | 2025-03-14 | 23.3.4 | Fix bugs |
 | EB | 2025-03-13 | 23.3.3 | Add support for custom UID/GID for node user. Add colored prompt |
 | EB | 2025-03-11 | 23.3.2 | Add tini as entrypoint. Update corepack to latest |
 | EB | 2024-12-02 | 23.3.1 | Add PNPM_HOME to PATH |
