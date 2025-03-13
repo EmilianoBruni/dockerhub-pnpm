@@ -48,7 +48,7 @@ ENV <%= "$key=$release->{env}{$key}" %>
   && npm install -g corepack \\
   && corepack enable \\
   # change node group and user id
-  && usermod -u 1001 node && groupmod -g 1001 node \\
+  # && usermod -u 1001 node && groupmod -g 1001 node \\
   # add node tu sudoers
   && echo '%node ALL=(ALL) NOPASSWD: ALL' > /etc/sudoers.d/node \\
   && su -c "pnpm set store-dir ${PNPM_HOME}/store" node \\
@@ -65,11 +65,14 @@ ENV <%= "$key=$release->{env}{$key}" %>
   && rm -rf /tmp/* \\
   && true
 
+COPY color_prompt.sh /etc/profile.d/color_prompt.sh
+COPY entrypoint.sh /
+
 USER node
 
 WORKDIR <%= $global->{app_folder} %>
 
 %= $labels
 
-ENTRYPOINT ["/sbin/tini", "--"]
+ENTRYPOINT ["/sbin/tini", "--", "/entrypoint.sh"]
 CMD ["/bin/ash"]
