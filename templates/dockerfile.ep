@@ -47,8 +47,6 @@ ENV <%= "$key=$release->{env}{$key}" %>
   # update corepack to latest version
   && npm install -g corepack \\
   && corepack enable \\
-  # change node group and user id
-  # && usermod -u 1001 node && groupmod -g 1001 node \\
   # add node tu sudoers
   && echo '%node ALL=(ALL) NOPASSWD: ALL' > /etc/sudoers.d/node \\
   && su -c "pnpm set store-dir ${PNPM_HOME}/store" node \\
