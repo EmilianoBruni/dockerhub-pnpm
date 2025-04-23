@@ -4,6 +4,18 @@
 
 # required shadow su-exec packages
 
+# Cleanup function to run on SIGTERM
+cleanup() {
+    echo "Caught SIGTERM, stopping..."
+    for ep in /etc/entrypoint.d/*.stop; do
+        if [ -x "${ep}" ]; then
+            echo "Running: ${ep}"
+            ash -a -c "${ep}"
+        fi
+    done
+    exit 0
+}
+
 if [ -z "$1" ]; then
     echo "No command provided. Exiting."
     exit 1
@@ -11,7 +23,7 @@ fi
 
 # Check if FORCE_UID is set, otherwise just run the command
 if [ -z "$FORCE_UID" ]; then
-    exec "$@"
+    exec "/etc/entrypoint.d/entrypoint.rc.d" "$@"
 fi
 
 USER_ID="$FORCE_UID"
@@ -37,5 +49,5 @@ if [ -d "<%= $global->{app_folder} %>" ]; then
     chown node:node "<%= $global->{app_folder} %>"
 fi
 
-# Execute the command as the 'node' user
-exec su-exec node "$@"
+# Execute this as the 'node' user
+exec su-exec node "/etc/entrypoint.d/entrypoint.rc.d" "$@"
