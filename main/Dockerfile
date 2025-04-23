@@ -1,7 +1,7 @@
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 #
 # AUTHORS :  Emiliano Bruni (EB) <info@ebruni.it>
-# DATE    :  2025-03-14
+# DATE    :  2025-04-23
 # PURPOSE :
 #   Docker image node with git and pnpm enabled.
 #
@@ -12,6 +12,7 @@
 #
 # UPDATES:
 #   AUTHOR  DATE        VER  COMMENTS
+#   EB      2025-04-23  23.3.5  Add entrypoint.d system to run other script before command.
 #   EB      2025-03-14  23.3.4  Fix bugs
 #   EB      2025-03-13  23.3.3  Add support for custom UID/GID for node user. Add colored prompt
 #   EB      2025-03-11  23.3.2  Add tini as entrypoint. Update corepack to latest
@@ -45,8 +46,6 @@ RUN apk add --no-cache \
   # update corepack to latest version
   && npm install -g corepack \
   && corepack enable \
-  # change node group and user id
-  # && usermod -u 1001 node && groupmod -g 1001 node \
   # add node tu sudoers
   && echo '%node ALL=(ALL) NOPASSWD: ALL' > /etc/sudoers.d/node \
   && su -c "pnpm set store-dir ${PNPM_HOME}/store" node \
@@ -57,6 +56,7 @@ RUN apk add --no-cache \
 
 COPY color_prompt.sh /etc/profile.d/color_prompt.sh
 COPY entrypoint.sh /
+COPY entrypoint.rc.d/ /etc/entrypoint.d/
 
 USER node
 
@@ -71,7 +71,7 @@ LABEL org.opencontainers.image.licenses=Artistic-2.0
 LABEL org.opencontainers.image.source=https://github.com/EmilianoBruni/dockerhub-pnpm/blob/master/main/Dockerfile
 LABEL org.opencontainers.image.title=dockerhub-pnpm
 LABEL org.opencontainers.image.url=https://github.com/EmilianoBruni/dockerhub-pnpm
-LABEL org.opencontainers.image.version=23.3.4
+LABEL org.opencontainers.image.version=23.3.5
 
 ENTRYPOINT ["/sbin/tini", "--", "/entrypoint.sh"]
 CMD ["/bin/ash"]

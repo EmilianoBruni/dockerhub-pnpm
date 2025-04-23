@@ -65,6 +65,7 @@ ENV <%= "$key=$release->{env}{$key}" %>
 
 COPY color_prompt.sh /etc/profile.d/color_prompt.sh
 COPY entrypoint.sh /
+COPY entrypoint.rc.d/ /etc/entrypoint.d/
 
 USER node
 

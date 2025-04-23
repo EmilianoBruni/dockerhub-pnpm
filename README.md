@@ -9,7 +9,7 @@ All images, unless explicitly defined, are based on [node:23-alpine3.20](https:/
 
 # Supported tags and respective Dockerfile links
 
-* ebruni/pnpm: [23.3.4, latest (main/Dockerfile)](https://github.com/EmilianoBruni/dockerhub-pnpm/blob/master/main/Dockerfile) (size: ****)
+* ebruni/pnpm: [23.3.5, latest (main/Dockerfile)](https://github.com/EmilianoBruni/dockerhub-pnpm/blob/master/main/Dockerfile) (size: **200MB**)
 
 
 # How to use this image
@@ -17,6 +17,37 @@ All images, unless explicitly defined, are based on [node:23-alpine3.20](https:/
 Start the application as
 
     $ docker run --rm -ti ebruni/pnpm
+
+# Environment variables
+
+This image runs under the user *node* (uid/gid 1000/1000) by default.
+
+You can match the UID/GID of the user in the container with the UID of the user on your host system. 
+This is useful if you want to mount a volume from your host system into the container.
+
+You can do this by setting the environment variable `FORCE_UID` to the UID of the user on your host system and `FORCE_GID` to the GID of the user on your host system.
+
+For example, if your user has UID 1000 and GID 1000, you can run the container like this:
+
+    $ docker run --rm -ti -e FORCE_UID=1000 -e FORCE_GID=1000 ebruni/pnpm
+
+This will set the UID and GID of the user in the container to the same UID and GID as the user on your host system. 
+
+This way, you can avoid permission issues when mounting a volume from your host system into the container.
+
+# Entrypoint.d
+
+This image supports the multiple entrypoint.d scripts.
+You can add your own scripts to the `/etc/entrypoint.d` directory in the container.
+These scripts will be executed in alphabetical order when the container starts.
+You can use this feature to run your own initialization scripts or to customize the behavior of the container.
+
+Supported scripts are:
+
+* `*.sh` - shell scripts running at startup in alphabetical
+* `*.env` - environment variables to be set in the container
+* `*.stop` - shell scripts running at shutdown in alphabetical order
+
 
 # Authors
 
@@ -26,6 +57,7 @@ Emiliano Bruni (EB) <info@ebruni.it>
 
 | AUTHOR | DATE | VER. | COMMENTS |
 |:---|:---:|:---:|:---|
+| EB | 2025-04-23 | 23.3.5 | Add entrypoint.d system to run other script before command. |
 | EB | 2025-03-14 | 23.3.4 | Fix bugs |
 | EB | 2025-03-13 | 23.3.3 | Add support for custom UID/GID for node user. Add colored prompt |
 | EB | 2025-03-11 | 23.3.2 | Add tini as entrypoint. Update corepack to latest |
