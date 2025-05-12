@@ -1,7 +1,7 @@
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 #
 # AUTHORS :  Emiliano Bruni (EB) <info@ebruni.it>
-# DATE    :  2025-04-23
+# DATE    :  2025-05-12
 # PURPOSE :
 #   Docker image node with git and pnpm enabled.
 #
@@ -12,6 +12,7 @@
 #
 # UPDATES:
 #   AUTHOR  DATE        VER  COMMENTS
+#   EB      2025-05-12  23.3.6  Add jq to process json files (package.json).
 #   EB      2025-04-23  23.3.5  Add entrypoint.d system to run other script before command.
 #   EB      2025-03-14  23.3.4  Fix bugs
 #   EB      2025-03-13  23.3.3  Add support for custom UID/GID for node user. Add colored prompt
@@ -43,6 +44,7 @@ RUN apk add --no-cache \
     shadow \
     tini \
     su-exec \
+    jq \
   # update corepack to latest version
   && npm install -g corepack \
   && corepack enable \
@@ -71,7 +73,7 @@ LABEL org.opencontainers.image.licenses=Artistic-2.0
 LABEL org.opencontainers.image.source=https://github.com/EmilianoBruni/dockerhub-pnpm/blob/master/main/Dockerfile
 LABEL org.opencontainers.image.title=dockerhub-pnpm
 LABEL org.opencontainers.image.url=https://github.com/EmilianoBruni/dockerhub-pnpm
-LABEL org.opencontainers.image.version=23.3.5
+LABEL org.opencontainers.image.version=23.3.6
 
 ENTRYPOINT ["/sbin/tini", "--", "/entrypoint.sh"]
 CMD ["/bin/ash"]
