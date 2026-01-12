@@ -1,4 +1,4 @@
-#!/bin/ash
+#!/bin/bash
 
 # This script is used to change the UID and GID of the 'node' user
 

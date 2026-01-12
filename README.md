@@ -5,11 +5,11 @@
 
 pnpm is a Docker image node with git and pnpm enabled.
 
-All images, unless explicitly defined, are based on [node:23-alpine3.20](https://hub.docker.com/repository/docker/node)
+All images, unless explicitly defined, are based on [node:24-alpine3.22](https://hub.docker.com/repository/docker/node)
 
 # Supported tags and respective Dockerfile links
 
-* ebruni/pnpm: [23.3.6, latest (main/Dockerfile)](https://github.com/EmilianoBruni/dockerhub-pnpm/blob/master/main/Dockerfile) (size: **201MB**)
+* ebruni/pnpm: [24.3.0, latest (main/Dockerfile)](https://github.com/EmilianoBruni/dockerhub-pnpm/blob/master/main/Dockerfile) (size: ****)
 
 
 # How to use this image
@@ -57,6 +57,7 @@ Emiliano Bruni (EB) <info@ebruni.it>
 
 | AUTHOR | DATE | VER. | COMMENTS |
 |:---|:---:|:---:|:---|
+| EB | 2026-01-08 | 24.3.0 | Switch to bash as default shell for node user and add bash autocomplete. Update node to 24.x and alpine to 3.22 |
 | EB | 2025-05-12 | 23.3.6 | Add jq to process json files (package.json). |
 | EB | 2025-04-23 | 23.3.5 | Add entrypoint.d system to run other script before command. |
 | EB | 2025-03-14 | 23.3.4 | Fix bugs |

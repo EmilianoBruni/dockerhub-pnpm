@@ -49,6 +49,10 @@ ENV <%= "$key=$release->{env}{$key}" %>
   && corepack enable \\
   # add node tu sudoers
   && echo '%node ALL=(ALL) NOPASSWD: ALL' > /etc/sudoers.d/node \\
+  # set root/node shell to bash
+  && chsh -s /bin/bash root \\
+  && chsh -s /bin/bash node \\
+  # configure pnpm store location
   && su -c "pnpm set store-dir ${PNPM_HOME}/store" node \\
 % if ($global->{os_packages_clear} || $release->{os_packages_clear}) {
   && apk del \\
@@ -63,9 +67,11 @@ ENV <%= "$key=$release->{env}{$key}" %>
   && rm -rf /tmp/* \\
   && true
 
-COPY color_prompt.sh /etc/profile.d/color_prompt.sh
+# COPY color_prompt.sh /etc/profile.d/color_prompt.sh
 COPY entrypoint.sh /
 COPY entrypoint.rc.d/ /etc/entrypoint.d/
+COPY --chown=node:node .node.bashrc /home/node/.bashrc
+COPY --chown=root:root .root.bashrc /root/.bashrc
 
 USER node
 
@@ -74,4 +80,4 @@ WORKDIR <%= $global->{app_folder} %>
 %= $labels
 
 ENTRYPOINT ["/sbin/tini", "--", "/entrypoint.sh"]
-CMD ["/bin/ash"]
+CMD ["/bin/bash"]
