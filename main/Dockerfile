@@ -1,7 +1,7 @@
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 #
 # AUTHORS :  Emiliano Bruni (EB) <info@ebruni.it>
-# DATE    :  2026-01-08
+# DATE    :  2026-05-08
 # PURPOSE :
 #   Docker image node with git and pnpm enabled.
 #
@@ -12,6 +12,7 @@
 #
 # UPDATES:
 #   AUTHOR  DATE        VER  COMMENTS
+#   EB      2026-05-08  24.4.0  Add ubuntu release
 #   EB      2026-01-08  24.3.0  Switch to bash as default shell for node user and add bash autocomplete. Update node to 24.x and alpine to 3.22
 #   EB      2025-05-12  23.3.6  Add jq to process json files (package.json).
 #   EB      2025-04-23  23.3.5  Add entrypoint.d system to run other script before command.
