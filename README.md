@@ -9,9 +9,9 @@ All images, unless explicitly defined, are based on [node:24-alpine3.22](https:/
 
 # Supported tags and respective Dockerfile links
 
-* [24.4.0, latest (main/Dockerfile)](https://github.com/EmilianoBruni/dockerhub-pnpm/blob/master/main/Dockerfile) (size: **200MB**)
+* [24.4.1, latest (main/Dockerfile)](https://github.com/EmilianoBruni/dockerhub-pnpm/blob/master/main/Dockerfile) (size: ****)
 
-* [24.4.0-ubuntu, ubuntu (ubuntu/Dockerfile)](https://github.com/EmilianoBruni/dockerhub-pnpm/blob/master/ubuntu/Dockerfile) (size: **741MB**) based on [ubuntu:24.04](https://hub.docker.com/repository/docker/ubuntu) 
+* [24.4.1-ubuntu, ubuntu (ubuntu/Dockerfile)](https://github.com/EmilianoBruni/dockerhub-pnpm/blob/master/ubuntu/Dockerfile) (size: ****) based on [ubuntu:24.04](https://hub.docker.com/repository/docker/ubuntu) 
 # How to use this image
 
 Start the application as
@@ -57,6 +57,7 @@ Emiliano Bruni (EB) <info@ebruni.it>
 
 | AUTHOR | DATE | VER. | COMMENTS |
 |:---|:---:|:---:|:---|
+| EB | 2026-05-08 | 24.4.0 | Fix: entrypoint not runnable in ubuntu |
 | EB | 2026-05-08 | 24.4.0 | Add ubuntu release |
 | EB | 2026-01-08 | 24.3.0 | Switch to bash as default shell for node user and add bash autocomplete. Update node to 24.x and alpine to 3.22 |
 | EB | 2025-05-12 | 23.3.6 | Add jq to process json files (package.json). |

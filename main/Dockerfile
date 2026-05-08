@@ -12,6 +12,7 @@
 #
 # UPDATES:
 #   AUTHOR  DATE        VER  COMMENTS
+#   EB      2026-05-08  24.4.0  Fix: entrypoint not runnable in ubuntu
 #   EB      2026-05-08  24.4.0  Add ubuntu release
 #   EB      2026-01-08  24.3.0  Switch to bash as default shell for node user and add bash autocomplete. Update node to 24.x and alpine to 3.22
 #   EB      2025-05-12  23.3.6  Add jq to process json files (package.json).
@@ -82,7 +83,7 @@ LABEL org.opencontainers.image.licenses=Artistic-2.0
 LABEL org.opencontainers.image.source=https://github.com/EmilianoBruni/dockerhub-pnpm/blob/master/main/Dockerfile
 LABEL org.opencontainers.image.title=dockerhub-pnpm
 LABEL org.opencontainers.image.url=https://github.com/EmilianoBruni/dockerhub-pnpm
-LABEL org.opencontainers.image.version=24.4.0
+LABEL org.opencontainers.image.version=24.4.1
 
 ENTRYPOINT ["/sbin/tini", "--", "/entrypoint.sh"]
 CMD ["/bin/bash"]
