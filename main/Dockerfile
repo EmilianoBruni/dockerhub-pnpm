@@ -82,7 +82,7 @@ LABEL org.opencontainers.image.licenses=Artistic-2.0
 LABEL org.opencontainers.image.source=https://github.com/EmilianoBruni/dockerhub-pnpm/blob/master/main/Dockerfile
 LABEL org.opencontainers.image.title=dockerhub-pnpm
 LABEL org.opencontainers.image.url=https://github.com/EmilianoBruni/dockerhub-pnpm
-LABEL org.opencontainers.image.version=24.3.0
+LABEL org.opencontainers.image.version=24.4.0
 
 ENTRYPOINT ["/sbin/tini", "--", "/entrypoint.sh"]
 CMD ["/bin/bash"]

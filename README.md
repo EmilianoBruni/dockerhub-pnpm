@@ -9,9 +9,9 @@ All images, unless explicitly defined, are based on [node:24-alpine3.22](https:/
 
 # Supported tags and respective Dockerfile links
 
-* [24.3.0, latest (main/Dockerfile)](https://github.com/EmilianoBruni/dockerhub-pnpm/blob/master/main/Dockerfile) (size: **200MB**)
+* [24.4.0, latest (main/Dockerfile)](https://github.com/EmilianoBruni/dockerhub-pnpm/blob/master/main/Dockerfile) (size: **200MB**)
 
-* [24.3.0-ubuntu, ubuntu (ubuntu/Dockerfile)](https://github.com/EmilianoBruni/dockerhub-pnpm/blob/master/ubuntu/Dockerfile) (size: **741MB**) based on [ubuntu:24.04](https://hub.docker.com/repository/docker/ubuntu) 
+* [24.4.0-ubuntu, ubuntu (ubuntu/Dockerfile)](https://github.com/EmilianoBruni/dockerhub-pnpm/blob/master/ubuntu/Dockerfile) (size: **741MB**) based on [ubuntu:24.04](https://hub.docker.com/repository/docker/ubuntu) 
 # How to use this image
 
 Start the application as
