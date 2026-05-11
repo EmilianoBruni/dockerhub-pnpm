@@ -36,11 +36,12 @@ FROM node:24-alpine3.22
 LABEL maintainer="Emiliano Bruni <info@ebruni.it>"
 ENV TZ=Europe/Rome
 ENV PNPM_HOME=/home/node/pnpm
+ENV PATH=$PNPM_HOME/bin:$PATH
 ENV ENV=/etc/profile
 ENV SHELL=bash
 
 
-
+ 
 # COPY color_prompt.sh /etc/profile.d/color_prompt.sh
 COPY entrypoint.sh /
 COPY entrypoint.rc.d/ /etc/entrypoint.d/
@@ -65,8 +66,10 @@ RUN apk add --no-cache \
   && chsh -s /bin/bash root \
   && chsh -s /bin/bash node \
   # configure pnpm store location
-  && su -c "pnpm set store-dir ${PNPM_HOME}/store && pnpm setup" node \
+  && su -c "pnpm set store-dir ${PNPM_HOME}/store" node \
   && apk del \
+  # update path in /etc/profile.d/base_path.sh to override default path in /etc/profile and include pnpm bin
+  && echo "export PATH=\"/home/node/pnpm/bin:\$PATH\"" > /etc/profile.d/pnpm.sh \
   && rm -rf /var/cache/apk/* \
   && rm -rf /tmp/* \
   && true
@@ -84,7 +87,7 @@ LABEL org.opencontainers.image.licenses=Artistic-2.0
 LABEL org.opencontainers.image.source=https://github.com/EmilianoBruni/dockerhub-pnpm/blob/master/main/Dockerfile
 LABEL org.opencontainers.image.title=dockerhub-pnpm
 LABEL org.opencontainers.image.url=https://github.com/EmilianoBruni/dockerhub-pnpm
-LABEL org.opencontainers.image.version=24.4.2
+LABEL org.opencontainers.image.version=24.4.3
 
 ENTRYPOINT ["/sbin/tini", "--", "/entrypoint.sh"]
 CMD ["/bin/bash"]

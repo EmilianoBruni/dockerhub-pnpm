@@ -5,6 +5,7 @@ ARG NODE_VERSION=24
 LABEL maintainer="Emiliano Bruni <info@ebruni.it>"
 ENV TZ=Europe/Rome
 ENV PNPM_HOME=/home/node/pnpm
+ENV PATH=$PNPM_HOME/bin:$PATH
 ENV ENV=/etc/profile
 ENV SHELL=bash
 
@@ -48,7 +49,7 @@ RUN echo "export NVM_DIR=\"$NVM_DIR\"" > /etc/profile.d/nvm.sh \
     && npm install -g npm \
     && npm install -g corepack \
     && corepack enable \
-    && su -s /bin/bash -l -c "mkdir -p ${PNPM_HOME}/store && pnpm set store-dir ${PNPM_HOME}/store && pnpm setup" node \
+    && su -s /bin/bash -l -c "mkdir -p ${PNPM_HOME}/store && pnpm set store-dir ${PNPM_HOME}/store" node \
     && true
 
 # and bind in .bashrc
@@ -79,7 +80,7 @@ LABEL org.opencontainers.image.licenses=Artistic-2.0
 LABEL org.opencontainers.image.source=https://github.com/EmilianoBruni/dockerhub-pnpm/blob/master/ubuntu/Dockerfile
 LABEL org.opencontainers.image.title=dockerhub-pnpm
 LABEL org.opencontainers.image.url=https://github.com/EmilianoBruni/dockerhub-pnpm
-LABEL org.opencontainers.image.version=24.4.2-ubuntu
+LABEL org.opencontainers.image.version=24.4.3-ubuntu
 
 ENTRYPOINT ["/usr/bin/tini", "--", "/entrypoint.sh"]
 CMD ["/bin/bash"]

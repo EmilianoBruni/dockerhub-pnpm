@@ -50,7 +50,7 @@ RUN echo "export NVM_DIR=\"$NVM_DIR\"" > /etc/profile.d/nvm.sh \\
     && npm install -g npm \\
     && npm install -g corepack \\
     && corepack enable \\
-    && su -s /bin/bash -l -c "mkdir -p ${PNPM_HOME}/store && pnpm set store-dir ${PNPM_HOME}/store && pnpm setup" node \\
+    && su -s /bin/bash -l -c "mkdir -p ${PNPM_HOME}/store && pnpm set store-dir ${PNPM_HOME}/store" node \\
     && true
 
 # and bind in .bashrc
