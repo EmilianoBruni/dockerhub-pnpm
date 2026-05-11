@@ -5,8 +5,8 @@ ARG NODE_VERSION=24
 LABEL maintainer="Emiliano Bruni <info@ebruni.it>"
 ENV TZ=Europe/Rome
 ENV PNPM_HOME=/home/node/pnpm
-ENV PATH=$PNPM_HOME:$PATH
 ENV ENV=/etc/profile
+ENV SHELL=bash
 
 ENV NVM_DIR=/usr/local/nvm
 
@@ -31,24 +31,26 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean && rm -rf /var/lib/apt/lists/* \
     && true
 
+# add entrypoint and entrypoint.d
+COPY entrypoint.sh /
+COPY entrypoint.rc.d/ /etc/entrypoint.d/
+# add root bash prompt
+COPY .root.bashrc /root/.bashrc_prompt
+# add node bash prompt
+COPY --chown=node:node .node.bashrc /home/node/.bashrc_prompt
+
 # install node & create /(etc/profile.d/nvm.sh) to load nvm on shell startup
 RUN echo "export NVM_DIR=\"$NVM_DIR\"" > /etc/profile.d/nvm.sh \
+    && echo "echo 'Loading nvm from $NVM_DIR/nvm.sh'" >> /etc/profile.d/nvm.sh \
     && echo "[ -s \"$NVM_DIR/nvm.sh\" ] && \. \"$NVM_DIR/nvm.sh\" # This loads nvm" >> /etc/profile.d/nvm.sh \
     && echo "[ -s \"$NVM_DIR/bash_completion\" ] && \. \"$NVM_DIR/bash_completion\"  # This loads nvm bash_completion" >> /etc/profile.d/nvm.sh \
-    && chmod 755 /etc/profile.d/nvm.sh \
     && . /etc/profile.d/nvm.sh && nvm install $NODE_VERSION \
     && npm install -g npm \
     && npm install -g corepack \
     && corepack enable \
-    && su -s /bin/bash -l -c "mkdir -p ${PNPM_HOME}/store && pnpm set store-dir ${PNPM_HOME}/store" node \
+    && su -s /bin/bash -l -c "mkdir -p ${PNPM_HOME}/store && pnpm set store-dir ${PNPM_HOME}/store && pnpm setup" node \
     && true
 
-# add entrypoint and entrypoint.d
-COPY entrypoint.sh /
-COPY entrypoint.rc.d/ /etc/entrypoint.d/
-
-# add root bash prompt
-COPY .root.bashrc /root/.bashrc_prompt
 # and bind in .bashrc
 RUN echo "" >> /root/.bashrc     && echo "# load custom prompt" >> /root/.bashrc \
     && echo "if [ -f ~/.bashrc_prompt ]; then" >> /root/.bashrc \
@@ -58,8 +60,6 @@ RUN echo "" >> /root/.bashrc     && echo "# load custom prompt" >> /root/.bashrc
 
 USER node
 
-# add node bash prompt
-COPY .node.bashrc /home/node/.bashrc_prompt
 # and bind in .bashrc
 RUN echo "" >> /home/node/.bashrc \
     && echo "# load custom prompt" >> /home/node/.bashrc \
@@ -79,7 +79,7 @@ LABEL org.opencontainers.image.licenses=Artistic-2.0
 LABEL org.opencontainers.image.source=https://github.com/EmilianoBruni/dockerhub-pnpm/blob/master/ubuntu/Dockerfile
 LABEL org.opencontainers.image.title=dockerhub-pnpm
 LABEL org.opencontainers.image.url=https://github.com/EmilianoBruni/dockerhub-pnpm
-LABEL org.opencontainers.image.version=24.4.1-ubuntu
+LABEL org.opencontainers.image.version=24.4.2-ubuntu
 
 ENTRYPOINT ["/usr/bin/tini", "--", "/entrypoint.sh"]
 CMD ["/bin/bash"]

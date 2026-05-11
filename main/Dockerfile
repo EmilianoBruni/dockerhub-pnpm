@@ -12,7 +12,8 @@
 #
 # UPDATES:
 #   AUTHOR  DATE        VER  COMMENTS
-#   EB      2026-05-08  24.4.0  Fix: entrypoint not runnable in ubuntu
+#   EB      2026-05-08  24.4.2  Fix: bin path for pnpm
+#   EB      2026-05-08  24.4.1  Fix: entrypoint not runnable in ubuntu
 #   EB      2026-05-08  24.4.0  Add ubuntu release
 #   EB      2026-01-08  24.3.0  Switch to bash as default shell for node user and add bash autocomplete. Update node to 24.x and alpine to 3.22
 #   EB      2025-05-12  23.3.6  Add jq to process json files (package.json).
@@ -35,10 +36,16 @@ FROM node:24-alpine3.22
 LABEL maintainer="Emiliano Bruni <info@ebruni.it>"
 ENV TZ=Europe/Rome
 ENV PNPM_HOME=/home/node/pnpm
-ENV PATH=$PNPM_HOME:$PATH
 ENV ENV=/etc/profile
+ENV SHELL=bash
 
 
+
+# COPY color_prompt.sh /etc/profile.d/color_prompt.sh
+COPY entrypoint.sh /
+COPY entrypoint.rc.d/ /etc/entrypoint.d/
+COPY --chown=node:node .node.bashrc /home/node/.bashrc
+COPY --chown=root:root .root.bashrc /root/.bashrc
 
 RUN apk add --no-cache \
     git \
@@ -58,17 +65,11 @@ RUN apk add --no-cache \
   && chsh -s /bin/bash root \
   && chsh -s /bin/bash node \
   # configure pnpm store location
-  && su -c "pnpm set store-dir ${PNPM_HOME}/store" node \
+  && su -c "pnpm set store-dir ${PNPM_HOME}/store && pnpm setup" node \
   && apk del \
   && rm -rf /var/cache/apk/* \
   && rm -rf /tmp/* \
   && true
-
-# COPY color_prompt.sh /etc/profile.d/color_prompt.sh
-COPY entrypoint.sh /
-COPY entrypoint.rc.d/ /etc/entrypoint.d/
-COPY --chown=node:node .node.bashrc /home/node/.bashrc
-COPY --chown=root:root .root.bashrc /root/.bashrc
 
 USER node
 
@@ -83,7 +84,7 @@ LABEL org.opencontainers.image.licenses=Artistic-2.0
 LABEL org.opencontainers.image.source=https://github.com/EmilianoBruni/dockerhub-pnpm/blob/master/main/Dockerfile
 LABEL org.opencontainers.image.title=dockerhub-pnpm
 LABEL org.opencontainers.image.url=https://github.com/EmilianoBruni/dockerhub-pnpm
-LABEL org.opencontainers.image.version=24.4.1
+LABEL org.opencontainers.image.version=24.4.2
 
 ENTRYPOINT ["/sbin/tini", "--", "/entrypoint.sh"]
 CMD ["/bin/bash"]
